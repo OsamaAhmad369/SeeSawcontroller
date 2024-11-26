@@ -1,3 +1,3 @@
 This is a demo of how the project works:
 
-![Uploading demo.gif…]()
+![alt text](https://github.com/OsamaAhmad369/SeeSawcontroller/blob/main/demo.gif)
