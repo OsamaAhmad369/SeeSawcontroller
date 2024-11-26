@@ -1,0 +1,370 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="seesaw">
+<!-- ======================================================== -->
+	<xacro:property name="width" value="0.0315" />
+	<xacro:property name="length" value="0.45" />
+	<xacro:property name="height" value="0.01" />
+	<xacro:property name="mass_fr" value="0.5" />
+	<xacro:property name="mass_pr" value="0.0055" />
+	<xacro:property name="pi_value" value="3.14159263" />
+	<xacro:property name="radiusp" value="0.20" />
+	<xacro:property name="prop_loc" value="0.75" />
+	<xacro:property name="prop_loc_width" value="0" />
+<!-- ======================================================== -->	
+	<xacro:include filename="$(find seesaw_bldc)/urdf/material.xacro" />
+	<xacro:include filename="$(find seesaw_bldc)/urdf/seesaw.gazebo" />
+<!-- ======================================================== -->
+	<!-- Define inertial macro -->
+	<xacro:macro name="default_inertial" params="mass p ix_value iy_value iz_value" >
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 ${p}" />
+			<mass value="${mass}" />
+			<inertia ixx="${ix_value}" ixy="0" ixz="0"
+					 iyy="${iy_value}" iyz="0" izz="${iz_value}" />
+		</inertial>
+	</xacro:macro> 
+	<!-- ======================================================== -->
+	<link name="cube">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<box size="${0.2} ${0.2} ${0.2}" />
+			</geometry>
+			<material name="black" />
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<box size="${0.45} ${0.45} ${0.45}" />
+			</geometry>
+		</collision>
+		<xacro:default_inertial mass="${0.02}" p="${0}" ix_value="${0}" iy_value="${0}" iz_value="${2.4e-5}" />
+	</link>
+<!-- ======================================================== -->	
+	<link name="fulcrum">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<box size="${0.2} ${0.1} ${0.8}" />
+			</geometry>
+			<material name="red" />
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<box size="${0.2} ${0.2} ${0.8}" />
+			</geometry>
+		</collision>
+	<xacro:default_inertial mass="5" p="0" ix_value="0.27" iy_value="0.28" iz_value="0.021" />
+	</link>
+
+	<!-- ======================================================== -->	
+	<link name="fulcrum2">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<box size="${0.2} ${0.1} ${0.8}" />
+			</geometry>
+			<material name="red" />
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<box size="${0.2} ${0.2} ${0.8}" />
+			</geometry>
+		</collision>
+	<xacro:default_inertial mass="5" p="0" ix_value="0.27" iy_value="0.28" iz_value="0.021" />
+	</link>
+<!-- ======================================================== -->
+	<link name="plank">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<box size="${3.0} ${0.2} ${0.08}" />
+			</geometry>
+			<material name="black" />
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<box size="${3.5} ${0.3} ${0.08}" />
+			</geometry>
+		</collision>
+		<xacro:default_inertial mass="${2}" p="${0}" ix_value="${0}" iy_value="${0}" iz_value="${2.4e-5}" />
+	</link>
+	<!-- ======================================================== -->
+	<link name="rod">
+		<visual>
+			<origin xyz="0 0 0" rpy="${3.1416/2} 0 0" />
+			<geometry>
+				<cylinder radius="${0.05}" length="${0.42}"  />
+			</geometry>
+			<material name="black" />
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="${3.1416/2} 0 0" />
+			<geometry>
+				<cylinder radius="${0.05}" length="${0.42}" />
+			</geometry>
+		</collision>
+	<xacro:default_inertial mass="2.57" p="0" ix_value="0.036" iy_value="0.036" iz_value="0.003" />
+	</link>	
+	<!-- ======================================================== -->
+	<link name="cyl1">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			
+			<geometry>
+				<cylinder radius="0.016" length="0.04" />
+			</geometry>
+			
+			<material name="golden" />
+		</visual>
+		
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			
+			<geometry>
+				<cylinder radius="0.016" length="0.04" />
+			</geometry>
+		</collision>
+		
+		<xacro:default_inertial mass="${0.01}" p="${0}" ix_value="${8.95e-6}" iy_value="${8.95e-6}" iz_value="${2.23e-4}" />
+	</link>
+	<link name="cyl2">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			
+			<geometry>
+				<cylinder radius="0.016" length="0.04" />
+			</geometry>
+			
+			<material name="golden" />
+		</visual>
+		
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			
+			<geometry>
+				<cylinder radius="0.016" length="0.04" />
+			</geometry>
+		</collision>
+		
+		<xacro:default_inertial mass="${0.01}" p="${0}" ix_value="${8.95e-6}" iy_value="${8.95e-6}" iz_value="${2.23e-4}" />
+	</link>
+	<!-- Propellers of the quad: fr, fl, br, bl -->
+	<link name="prop_right">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<box size="${0.03302/3} ${radiusp*0.8} ${0.001}" />
+			</geometry>
+			<material name="black" />
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<box size="${0.03302/3} ${radiusp*0.8} ${0.001}" />
+			</geometry>
+		</collision>
+		<xacro:default_inertial mass="${mass_pr}" p="${0}" ix_value="${0}" iy_value="${0}" iz_value="${4.42448e-5}" />	
+	</link>
+	
+	<link name="prop_left">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			
+			<geometry>
+				<box size="${0.03302/3} ${radiusp*0.8} ${0.001}" />
+			</geometry>
+			
+			<material name="black"/>
+		</visual>
+		
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			
+			<geometry>
+				<box size="${0.03302/3} ${radiusp*0.8} ${0.001}" />
+			</geometry>
+		</collision>
+		
+		<xacro:default_inertial mass="${mass_pr}" p="${0}"  ix_value="${0}" iy_value="${0}" iz_value="${4.42448e-5}" />
+		
+	</link>
+	<link name="Base">
+	<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			
+			<geometry>
+				<box size="${1.0} ${1.0} ${0.08}" />
+			</geometry>
+			
+			<material name="black"/>
+		</visual>
+		
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			
+			<geometry>
+				<box size="${1.0} ${1.0} ${0.08}" />
+			</geometry>
+		</collision>
+		
+		<xacro:default_inertial mass="10" p="0" ix_value="0.84" iy_value="0.84" iz_value="1.67" />
+		
+	</link>
+
+	<!-- ======================================================== -->	
+	<link name="sensor_link">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<box size="0.1 0.1 0.05" />
+			</geometry>
+			
+			<material name="red" />
+			
+		</visual>
+		
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<box size="0.01 0.01 0.01" />
+			</geometry>
+		</collision>
+		
+		<xacro:default_inertial mass="${1e-5}" p="${0}" ix_value="${1e-6}" iy_value="${1e-6}" iz_value="${1e-6}" />
+	</link>
+	<gazebo reference="Base">
+    <plugin name="fixed_base_plugin" filename="libfixed_base.so" />
+</gazebo>
+	 <link name="world"/>
+	<joint name="base_to_ground" type="fixed">
+    <parent link="world" /> 
+    <child link="Base" /> 
+		<origin xyz="0 0 0.04" rpy="0 0 0"/>
+	<!-- <dynamics damping="10.0" /> -->
+    </joint> 
+	<!-- Define the joint between the palnk and fulcrum -->
+	 <joint name="fulcrum1_to_base" type="fixed">
+		<parent link="Base" />
+		<child link="fulcrum" />
+		<origin xyz="0 -0.15 0.44" rpy="0 0 0"/>
+	</joint> 
+	 <joint name="fulcrum2_to_base" type="fixed">
+		<parent link="Base" />
+		<child link="fulcrum2" />
+		<origin xyz="0 0.15 0.44" rpy="0 0 0"/>
+	</joint> 
+	<joint name="rod_to_fulcrum" type="revolute">
+    <parent link="fulcrum" />
+    <child link="rod" />
+    <origin xyz="0 0 0.2" rpy="0 0 0" />
+		<axis xyz="0 1 0" />
+		 <limit lower="-1.57" upper="1.57" effort="10" velocity="1" />
+		<!-- <dynamics damping="1.0" friction="0.1" /> -->
+</joint> 
+<!-- <joint name="rod_to_fulcrum2" type="fixed">
+    <parent link="fulcrum2" />
+    <child link="rod" />
+    <origin xyz="0 -0.08 0.2" rpy="0 0 0" />
+		 <axis xyz="0 1 0" />
+		 <limit lower="-1.57" upper="1.57" effort="10" velocity="1" />
+		<dynamics damping="10.0" friction="0.1" /> 
+</joint> -->
+
+ <joint name="rod_to_fulcrum2" type="revolute">
+    <parent link="fulcrum2" />
+    <child link="rod" />
+    <origin xyz="0 0 -0.2" rpy="0 0 0" />
+		<axis xyz="0 1 0" />
+		 <limit lower="-1.57" upper="1.57" effort="10" velocity="1" />
+		<!-- <dynamics damping="10.0" friction="0.1" /> -->
+</joint> 
+	 <!-- <joint name="center" type="revolute">
+		<parent link="rod1" />
+		<child link="plank" />
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<axis xyz="0 1 0" />
+		 <limit lower="-1.57" upper="1.57" effort="10" velocity="1" /> 
+	</joint>  -->
+	<joint name="center" type="fixed">
+    <parent link="rod" />
+    <child link="plank" />
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <!-- <axis xyz="0 1 0" />  -->
+    <!-- <limit lower="-1.57" upper="1.57" effort="100" velocity="1.0" /> -->
+    <!-- <dynamics damping="0.5" friction="0.1" /> -->
+</joint>
+	<joint name="joint_cyl1_frame" type="fixed">
+		<parent link="plank" />
+		<child link="cyl1" />
+		<origin xyz="${prop_loc - 0.04} ${prop_loc_width} 0.02" rpy="0 0 0" />
+		<axis xyz="0 0 1" />
+	</joint>
+	<joint name="joint_cyl2_frame" type="fixed">
+		<parent link="plank" />
+		<child link="cyl2" />
+		<origin xyz="${-prop_loc + 0.04} ${prop_loc_width} 0.02" rpy="0 0 0" />
+		<axis xyz="0 0 1" />
+	</joint>
+<!-- ======================================================== -->
+	<!-- Define joint between prop fr and frame -->
+    <joint name="joint_right_prop" type="continuous">
+		<parent link="cyl1" />
+		<child link="prop_right" />
+		<origin xyz="${-0} ${-0} 0" rpy="0 0 0"/> 
+		<!-- <origin xyz="${-0.005} ${-0.15} -0.43" rpy="0 0 0"/>  -->
+		<!-- <origin xyz="${1.5 + 0.04} ${prop_loc_width} -0.4" rpy="0 0 0"/>  -->
+		<axis xyz="0 0 1" />
+	</joint>
+<!-- ======================================================== -->
+	<!-- Define joint between prop fl and frame -->
+	 <joint name="joint_left_prop" type="continuous">
+		<parent link="cyl2" />
+		<child link="prop_left" />
+		<origin xyz="${0} ${0} 0" rpy="0 0 0"/> 
+	    <!-- <origin xyz="${0.005} ${-0.15} -0.43" rpy="0 0 0"/>  -->
+		<axis xyz="0 0 1" />
+	</joint>
+	<!-- ======================================================== -->
+	<joint name="joint_mass" type="fixed">
+		<parent link="plank" />
+		<child link="cube" />
+		<origin xyz="${0.4} ${0} 0.04" rpy="0 0 0" />
+		<axis xyz="0 0 1" />
+	</joint>
+<!-- ======================================================== -->
+<!-- Define joint between Arduino and frame -->
+	<joint name="joint_sensor_frame" type="fixed">
+		<parent link="plank" />
+		<child link="sensor_link" />
+		<origin xyz="${0.65} ${0} 0.01" rpy="0 0 0" />
+		<axis xyz="0 0 1" />
+	</joint>
+<!-- ======================================================== -->
+<!-- Add transmission elements -->
+	<transmission name="right_motor_joint" >
+		<type>transmission_interface/SimpleTransmission</type>	
+		<joint name="joint_right_prop">
+			<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="BLDC_motor1">
+			<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+	
+	<transmission name="left_motor_joint" >
+		<type>transmission_interface/SimpleTransmission</type>	
+		<joint name="joint_left_prop">
+			<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="BLDC_motor2">
+			<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+	
+</robot>

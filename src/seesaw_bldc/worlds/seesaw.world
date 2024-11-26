@@ -1,0 +1,31 @@
+<?xml_version="1.0" ?>
+<sdf version="1.4">
+	<world name="default">
+	<physics type="ode">
+    <max_step_size>0.001</max_step_size>
+    <real_time_update_rate>1000</real_time_update_rate>
+    <solver>
+        <ode>
+            <cfm>0.001</cfm> <!-- Constraint Force Mixing -->
+            <erp>0.2</erp>   <!-- Error Reduction Parameter -->
+        </ode>
+    </solver>
+</physics>
+		<scene>
+			<sky>
+				<clouds>
+					<speed>12</speed>
+				</clouds>
+			</sky>
+		</scene>
+	
+		<include>
+			<uri>model://ground_plane</uri>
+		</include>
+		
+		<include>
+			<uri>model://sun</uri>
+		</include>
+		
+	</world>
+</sdf>

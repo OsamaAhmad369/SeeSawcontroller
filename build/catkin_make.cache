@@ -1,0 +1,2 @@
+seesaw_bldc
+-DCATKIN_DEVEL_PREFIX=/home/ee/Thesis/DRL/Seesaw/seesaw_ws/devel -DCMAKE_INSTALL_PREFIX=/home/ee/Thesis/DRL/Seesaw/seesaw_ws/install -G Unix Makefiles

@@ -1,0 +1,29 @@
+<launch>
+	
+	<include file="$(find gazebo_ros)/launch/empty_world.launch">
+		<arg name="world_name" value="$(find seesaw_bldc)/worlds/seesaw.world" />
+		<arg name="paused" default="false" />
+		<arg name="use_sim_time" default="true" />
+		<arg name="gui" default="true" />
+		<arg name="headless" default="false" />
+		<arg name="debug" default="false" />
+	</include>
+	
+	<group ns="seesaw">
+		
+		<param name="robot_description" command="$(find xacro)xacro '$(find seesaw_bldc)/urdf/seesaw.xacro'" />
+		
+		<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-param robot_description -urdf -model seesaw" />
+		
+		<rosparam file="$(find seesaw_bldc)/config/seesaw_control.yaml" command="load" ns="/seesaw" />
+		
+		<node name="control_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="--namespace=/seesaw joint_state_controller joint_motor_controller" /> 
+		
+		<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
+		
+			<param name="publish_frequency" type="double" value="5.0" />
+		</node>
+	</group>
+	
+		
+</launch>

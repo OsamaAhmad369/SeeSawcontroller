@@ -1,0 +1,8 @@
+prefix=/home/ee/Thesis/DRL/Seesaw/seesaw_ws/install
+
+Name: seesaw_bldc
+Description: Description of seesaw_bldc
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
